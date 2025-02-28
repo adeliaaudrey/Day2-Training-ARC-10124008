@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audrey's Recap</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Prudence's Makeup Recomendation</h1>
+    <div id="product-container"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const produkLokal = [
+                { nama: "Embryolisse Lait-Crème Moisturizer", deskripsi: "Moisturizer yang difavoritkan dermatologist selama beberapa dekade dan dipuji oleh profesional kecantikan dan penata rias, produk serba guna ini adalah rahasia mereka untuk mendapatkan kulit yang indah.", harga: 389000, alasanFavorit: "Makeup jadi gak menggumpal dan jadi lebih nempel ke kulit.", gambar: "https://us.embryolisse.com/cdn/shop/products/EB202000_01.jpg?v=1718222285&width=1200" },
+                { nama: "d'Alba White Truffle First Spray Serum", deskripsi: "First Spray Mist Serum yang mengandung Bi-Phase oil dan serum yang dapat memberikan hidrasi dan vitalitas pada kulit agar kulit terlihat lebih muda.", harga: 299000, alasanFavorit: "Makeup apapun bakal kelihatan bagus kalau pakai ini, bikin makeup keliatan lebih seamless.", gambar: "https://www.soco.id/cdn-cgi/image/w=360,format=auto,quality=100,dpr=1.5/https://images.soco.id/f1853fa0-84c3-48a0-966b-170049de59c6-image-0-1732593845506" },
+                { nama: "NARS Light Reflecting Foundation", deskripsi: "Alas bedak hibrida perawatan kulit makeup-featherlight yang canggih. Formula vegan terdiri dari 70% bahan perawatan kulit &lebih dari 81% bahan yang berasal dari alam.", harga: 760000, alasanFavorit: "Foundation yang paling ringan dan skin light. Coverage tinggi tapi sama sekali gak dempul.", gambar: "https://image-optimizer-id.production.sephora-asia.net/images/product_images/closeup_194251070384_1_c51dff334f0db087077c41662023e04c405e566a_1648542827.png" },
+                { nama: "NARS Radiant Creamy Concealer", deskripsi: "Concealer klasik memberikan kesempurnaan selama 16 jam untuk semua tujuan dengan tekstur mewah dan hasil akhir bercahaya.", harga: 550000, alasanFavorit: "Hasilnya high coverage, bener-bener skin light dan lumayan glowing juga.", gambar: "https://image-optimizer-id.production.sephora-asia.net/images/product_images/closeup_1_Product_607845012320-Nars-Radiant-Creamy-Concealer-Vanilla---Tiny-cast-of-pink-for-the-f_8481283cfd4714e59a5fe9bd3f3aea330fd4808a_1603335796.png" },
+                { nama: "Fenty Match Stix Matte Contour Skinstick", deskripsi: "Stik kontur matte dalam berbagai warna untuk semua jenis kulit.", harga: 721000, alasanFavorit: "Creamy, gampang diblend, shadenya juga natural karena dia cool tone.", gambar: "https://www.sephora.com/productimages/sku/s2589901-main-zoom.jpg?imwidth=1224" },
+                { nama: "Givenchy Prisme Libre Loose Powder", deskripsi: "Kombinasi setting-finish powder ini terdiri dari empat warna yang didesain untuk mattify, blur, dan mencerahkan sehingga memberikan hasil akhir tipis, bercahaya, dan flawless selama enam jam.", harga: 945000, alasanFavorit: "Powder ini punya fungsi brightening dan color correcting. Hasilnya langsung ke blur dan gak cakey.", gambar: "https://image-optimizer-id.production.sephora-asia.net/images/product_images/closeup_1_Product_3274872458581-GIVENCHY-Prisme-Libre-4-Color-Loose-_a0ac153728a4afb897bf5694aae8f98f53147519_1727921612.png" },
+                { nama: "Huda Beauty Nude Eyeshadow Palette", deskripsi: "Palet eyeshadow all-in-one terdiri dari 18 warna berpigmen tinggi, mulai dari warna matte yang bagus hingga warna yang berkilauan.", harga: 1320000, alasanFavorit: "Looksnya cantik banget dan super creamy.", gambar: "https://image-optimizer-id.production.sephora-asia.net/images/product_images/closeup_1_Product_202146_2520Huda_2520Beauty_2520Nude_2520Eyeshadow_2520Palette_8c4f365d5d8e9c09472d7d939d0c2d431b708e1d_1686564662.png" },
+                { nama: "Smooth Liquid Eyeliner Super Keep", deskripsi: "Smooth Liquid Eyeliner memiliki aplikator dengan ketebalan 0.1 mm yang elastis, membuat eyeliner ini fleksibel dan mudah untuk digunakan.", harga: 135000, alasanFavorit: "Eyeliner yang tahan lama.", gambar: "https://kissme-usa.com/cdn/shop/files/hm-smooth-liquid-1.jpg?v=1723837992&width=1500" },
+                { nama: "3D Curling Eyelash Iron Mascara", deskripsi: "Dengan aplikator besi yang tipis dan brushless untuk mempermudah pemakaian sampai akar bulu mata dan pada bagian yang susah dijangkau. .", harga: 125000, alasanFavorit: "Mascara ini sama sekali gak menggumpal, bikin lentik banget, dan naik keatas.", gambar: "https://judydoll.com/cdn/shop/files/1-min_7caaffcc-0bc3-4bf5-b743-d1bfe9be4a4a.jpg?v=1736832339" },
+                { nama: "Clinique Cheek Pop", deskripsi: "Clinique Cheek Pop merupakan perona pipi dengan warna cerah dan alami membuat penampilan hampir seperti tidak menggunakan bubuk perona. Berformula lembut dan berwarna nyata dengan bermacam warna yang cocok untuk semua warna kulit.", harga: 292000, alasanFavorit: "My favorite blush of all time.", gambar: "https://m.media-amazon.com/images/I/61IaRaxHyAL._SX522_.jpg" }
+            ];
+            const container = document.getElementById("product-container");
+            produkLokal.forEach(product => {
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+                productDiv.innerHTML = `
+                    <img src="${product.gambar}" alt="${product.nama}">
+                    <h3>${product.nama}</h3>
+                    <p>${product.deskripsi}</p>
+                    <p>Harga: Rp${product.harga}</p>
+                    <p>Kenapa Suka?: ${product.alasanFavorit}</p>
+                `;
+                container.appendChild(productDiv);
+            });
+        });
+    </script>
+</body>
+</html>
